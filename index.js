@@ -29,7 +29,19 @@ async function run() {
     await client.connect();
     // Send a ping to confirm a successful connection
 
+    
     const toysCollection = client.db('battleheroes').collection('alltoys');
+    
+    const indexKeys = {name : 1};
+    const indexOption = {name : "toyname"}
+
+    const result = await toysCollection.createIndex(indexKeys,indexOption);
+
+
+
+
+
+
 
     app.get("/alltoys" , async(req,res)=>{
      const cursos = toysCollection.find();
