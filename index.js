@@ -79,11 +79,31 @@ async function run() {
       res.send(result);
   })
 
+  // update toy
+
+  app.get("/update/:id" ,async(req, res) => {
+        const id  = req.params.id;
+        const query = {_id : new ObjectId(id)}
+        const result = await toysCollection.findOne(query)
+        res.send(result)
+  })
+
+
+  // delete toy
+
   app.delete("/mytoys/:id" , async(req ,res) => {
     const id = req.params.id;
     const query = {_id : new ObjectId(id)}
     const result = await toysCollection.deleteOne(query);
     res.send(query)
+  })
+
+  app.patch("/update/:id" , async(req,res) => {
+    const id = req.params.id;
+    const filter = {_id : new ObjectId(id)}
+    const updateTot = req.body
+    const result = await toysCollection.updateOne(filter , updateTot)
+    res.send(result)
   })
 
 
