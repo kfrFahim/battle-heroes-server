@@ -88,12 +88,16 @@ async function run() {
     app.put("/update/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
-      const toyUpdate = {
+      const toyUpdate = req.body
+      const toys = {
         $set: {
-          
+          name : toyUpdate.name,
+          price : toyUpdate.price,
+          quantity : toyUpdate.quantity,
+          rating : toyUpdate.rating
         },
       };
-      const result = await toysCollection.updateOne(query, toyUpdate);
+      const result = await toysCollection.updateOne(query, toys);
       res.send(result);
     });
 
