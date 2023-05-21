@@ -61,7 +61,15 @@ async function run() {
       const result = await cursos.toArray();
       res.send(result);
     });
-    
+
+    app.get("/toy/:id" ,async(req,res)=>{
+      const id = req.params.id
+      const cursos = await toysCollection.findOne({_id: new ObjectId(id)});
+      res.send(cursos)
+
+    })
+
+
 
     app.get("/mytoys", async (req, res) => {
       const result = await toysCollection.find({}).toArray();
@@ -81,7 +89,9 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const toyUpdate = {
-        $set: {},
+        $set: {
+          
+        },
       };
       const result = await toysCollection.updateOne(query, toyUpdate);
       res.send(result);
